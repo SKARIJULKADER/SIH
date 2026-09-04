@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    /* Larger root font: all Tailwind rem-based sizes (text, spacing, emoji icons)
+       scale up proportionally for a bigger, more readable UI. */
+    font-size: 18px;
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-text font-sans antialiased;
+  }
+  /* Scale every lucide + brand SVG icon relative to its surrounding text.
+     Zero-specificity :where() keeps Tailwind width utilities (w-5, w-8...) in
+     control, and the 20px floor guarantees small icons (size={14}) still grow. */
+  :where(svg.lucide, svg.brand-icon) {
+    width: max(1.25em, 21px);
+    height: max(1.25em, 21px);
+  }
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0b0c13;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #2e303a;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3a3f4d;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-surface/50 backdrop-blur-xl border border-border;
+  }
+  .glass-card {
+    @apply bg-surface/60 backdrop-blur-xl border border-border rounded-xl;
+  }
+  .card {
+    @apply glass-card p-6;
+  }
+  .btn-primary {
+    @apply bg-gradient-to-r from-primary to-secondary text-white font-medium py-2.5 px-6 rounded-lg transition-all duration-300 hover:shadow-glow transform hover:scale-105;
+  }
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary;
+  }
+  /* Green "growth" gradient for the light landing theme (Learning → Growth → Career → Success) */
+  .text-gradient-growth {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-growth via-teal-500 to-sky-500;
+  }
+  .animate-fade-in { animation: fadeIn 0.3s ease-out; }
+  .animate-slide-up { animation: slideUp 0.3s ease-out; }
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
