@@ -3,6 +3,58 @@
 @tailwind utilities;
 
 @layer base {
+  /* ============ Theme variables ============
+     Colors are declared as raw RGB triplets so Tailwind utilities like
+     `bg-surface/50` or `border-border/60` can apply alpha. The `.dark`
+     class on <html> switches the whole palette (toggle in the Navbar). */
+  :root {
+    color-scheme: light;
+    --color-background: 248 250 252;      /* slate-50    */
+    --color-background-2: 241 245 249;    /* slate-100   */
+    --color-surface: 255 255 255;         /* white       */
+    --color-surface-2: 241 245 249;       /* slate-100   */
+    --color-surface-3: 226 232 240;       /* slate-200   */
+    --color-border: 226 232 240;          /* slate-200   */
+    --color-border-light: 203 213 225;    /* slate-300   */
+    --color-text: 71 85 105;              /* slate-600   */
+    --color-text-secondary: 100 116 139;  /* slate-500   */
+    --color-text-heading: 15 23 42;       /* slate-900   */
+    --color-primary: 139 92 246;          /* #8b5cf6     */
+    --color-primary-2: 124 58 237;        /* #7c3aed     */
+    --color-primary-light: 167 139 250;   /* #a78afa     */
+    --color-secondary: 6 182 212;         /* #06b6d4     */
+    --color-secondary-light: 34 211 238;  /* #22d3ee     */
+    --color-accent: 236 72 153;           /* #ec4899     */
+    --color-accent-light: 244 114 182;    /* #f472b6     */
+    --color-success: 34 197 142;          /* #22c58e     */
+    --color-warning: 245 158 11;          /* #f59e0b     */
+    --color-danger: 239 68 68;            /* #ef4444     */
+  }
+
+  .dark {
+    color-scheme: dark;
+    --color-background: 11 12 19;         /* #0b0c13     */
+    --color-background-2: 16 18 26;       /* #10121a     */
+    --color-surface: 22 23 29;            /* #16171d     */
+    --color-surface-2: 28 31 41;          /* #1c1f29     */
+    --color-surface-3: 35 39 50;          /* #232732     */
+    --color-border: 46 48 58;             /* #2e303a     */
+    --color-border-light: 58 63 77;       /* #3a3f4d     */
+    --color-text: 156 163 175;            /* #9ca3af     */
+    --color-text-secondary: 123 132 150;  /* #7b8496     */
+    --color-text-heading: 243 244 246;    /* #f3f4f6     */
+    --color-primary: 139 92 246;
+    --color-primary-2: 124 58 237;
+    --color-primary-light: 167 139 250;
+    --color-secondary: 6 182 212;
+    --color-secondary-light: 34 211 238;
+    --color-accent: 236 72 153;
+    --color-accent-light: 244 114 182;
+    --color-success: 34 197 142;
+    --color-warning: 245 158 11;
+    --color-danger: 239 68 68;
+  }
+
   html {
     /* Larger root font: all Tailwind rem-based sizes (text, spacing, emoji icons)
        scale up proportionally for a bigger, more readable UI. */
@@ -24,14 +76,14 @@
     height: 8px;
   }
   ::-webkit-scrollbar-track {
-    background: #0b0c13;
+    background: rgb(var(--color-background));
   }
   ::-webkit-scrollbar-thumb {
-    background: #2e303a;
+    background: rgb(var(--color-border));
     border-radius: 4px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #3a3f4d;
+    background: rgb(var(--color-border-light));
   }
 }
 
@@ -68,3 +120,33 @@
     scroll-behavior: auto !important;
   }
 }
+/* ===== Certificate printing (Print / Save as PDF from CertificateModal) ===== */
+@media print {
+  /* Only take over printing when a certificate is on screen (uses :has) */
+  body:has(.certificate-print-area) * {
+    visibility: hidden !important;
+  }
+  .certificate-print-area,
+  .certificate-print-area * {
+    visibility: visible !important;
+  }
+  /* Print the full-size document at the top-left of the page, undoing the
+     on-screen responsive scale */
+  .certificate-print-area {
+    position: fixed !important;
+    left: 0 !important;
+    top: 0 !important;
+    transform: scale(0.92) !important;
+    transform-origin: top left !important;
+  }
+  .certificate-print-wrap {
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+}
+@page {
+  size: A4 landscape;
+  margin: 8mm;
+}
+

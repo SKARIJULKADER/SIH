@@ -27,6 +27,7 @@ import Login from '@/pages/Login'
 import Register from '@/pages/Register'
 import Tokens from '@/pages/Tokens'
 import VideoSolutions from '@/pages/VideoSolutions'
+import Roadmaps from '@/pages/Roadmaps'
 
 import DashboardCourses from '@/pages/dashboard/Courses'
 import DashboardSkills from '@/pages/dashboard/Skills'
@@ -74,6 +75,7 @@ function App() {
         <Route path="/team" element={<Team />} />
         <Route path="/tokens" element={<Tokens />} />
         <Route path="/video-solutions" element={<VideoSolutions />} />
+        <Route path="/roadmaps" element={<Roadmaps />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 

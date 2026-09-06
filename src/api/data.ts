@@ -57,16 +57,51 @@ export const semesters: Semester[] = [
   { id: 'sem-4', universityId: 'univ-1', name: '4th Semester', slug: 'sem4' },
   { id: 'sem-5', universityId: 'univ-1', name: '5th Semester', slug: 'sem5' },
   { id: 'sem-6', universityId: 'univ-1', name: '6th Semester', slug: 'sem6' },
+  { id: 'sem-7', universityId: 'univ-1', name: '7th Semester', slug: 'sem7' },
+  { id: 'sem-8', universityId: 'univ-1', name: '8th Semester', slug: 'sem8' },
+
+  { id: 'mu-sem-1', universityId: 'univ-2', name: '1st Semester', slug: 'mu-sem1' },
+  { id: 'mu-sem-2', universityId: 'univ-2', name: '2nd Semester', slug: 'mu-sem2' },
+  { id: 'mu-sem-3', universityId: 'univ-2', name: '3rd Semester', slug: 'mu-sem3' },
+  { id: 'mu-sem-4', universityId: 'univ-2', name: '4th Semester', slug: 'mu-sem4' },
+  { id: 'mu-sem-5', universityId: 'univ-2', name: '5th Semester', slug: 'mu-sem5' },
+  { id: 'mu-sem-6', universityId: 'univ-2', name: '6th Semester', slug: 'mu-sem6' },
+  { id: 'mu-sem-7', universityId: 'univ-2', name: '7th Semester', slug: 'mu-sem7' },
+  { id: 'mu-sem-8', universityId: 'univ-2', name: '8th Semester', slug: 'mu-sem8' },
+
+  { id: 'ip-sem-1', universityId: 'univ-3', name: '1st Semester', slug: 'ip-sem1' },
+  { id: 'ip-sem-2', universityId: 'univ-3', name: '2nd Semester', slug: 'ip-sem2' },
+  { id: 'ip-sem-3', universityId: 'univ-3', name: '3rd Semester', slug: 'ip-sem3' },
+  { id: 'ip-sem-4', universityId: 'univ-3', name: '4th Semester', slug: 'ip-sem4' },
+  { id: 'ip-sem-5', universityId: 'univ-3', name: '5th Semester', slug: 'ip-sem5' },
+  { id: 'ip-sem-6', universityId: 'univ-3', name: '6th Semester', slug: 'ip-sem6' },
+  { id: 'ip-sem-7', universityId: 'univ-3', name: '7th Semester', slug: 'ip-sem7' },
+  { id: 'ip-sem-8', universityId: 'univ-3', name: '8th Semester', slug: 'ip-sem8' },
+
+  { id: 'ak-sem-1', universityId: 'univ-4', name: '1st Semester', slug: 'ak-sem1' },
+  { id: 'ak-sem-2', universityId: 'univ-4', name: '2nd Semester', slug: 'ak-sem2' },
+  { id: 'ak-sem-3', universityId: 'univ-4', name: '3rd Semester', slug: 'ak-sem3' },
+  { id: 'ak-sem-4', universityId: 'univ-4', name: '4th Semester', slug: 'ak-sem4' },
+  { id: 'ak-sem-5', universityId: 'univ-4', name: '5th Semester', slug: 'ak-sem5' },
+  { id: 'ak-sem-6', universityId: 'univ-4', name: '6th Semester', slug: 'ak-sem6' },
+  { id: 'ak-sem-7', universityId: 'univ-4', name: '7th Semester', slug: 'ak-sem7' },
+  { id: 'ak-sem-8', universityId: 'univ-4', name: '8th Semester', slug: 'ak-sem8' },
 ]
 
 export const subjects: Subject[] = [
-  { id: 'sub-dsa', semesterId: 'sem-3', name: 'Data Structures & Algorithms', code: 'CS201', description: 'Fundamental data structures and algorithmic problem solving', credit: 4, color: 'from-purple-500 to-indigo-500' },
+  { id: 'sub-dsa', semesterId: 'sem-3', name: 'Data Structures & Algorithms', code: 'CS201', description: 'Fundamental data structures and algorithmic problem solving', credit: 4, color: 'from-purple-500 to-indigo-500', playlistUrl: 'https://www.youtube.com/watch?v=m3fg2PRY1u4&list=PLqM7alHXFySGwOTADxwHrgH8m_XpgrB-k' },
   { id: 'sub-oops', semesterId: 'sem-3', name: 'Object Oriented Programming', code: 'CS202', description: 'Principles of object-oriented design and programming using Java', credit: 3, color: 'from-cyan-500 to-blue-500' },
   { id: 'sub-dbms', semesterId: 'sem-3', name: 'Database Management Systems', code: 'CS203', description: 'Relational database design, SQL, and transaction management', credit: 3, color: 'from-emerald-500 to-teal-500' },
   { id: 'sub-os', semesterId: 'sem-4', name: 'Operating Systems', code: 'CS301', description: 'Process management, memory management, and file systems', credit: 4, color: 'from-amber-500 to-orange-500' },
-  { id: 'sub-maths', semesterId: 'sem-1', name: 'Mathematics I', code: 'MA101', description: 'Calculus, linear algebra, and differential equations', credit: 4, color: 'from-rose-500 to-pink-500' },
+  { id: 'sub-maths', semesterId: 'sem-1', name: 'Mathematics I', code: 'MA101', description: 'Calculus, linear algebra, and differential equations', credit: 4, color: 'from-rose-500 to-pink-500', playlistUrl: 'https://www.youtube.com/watch?v=ze-ozGVF1j4&list=PLn3Wz38keZOexsv87q3UtQl5RuaEKOeDX' },
   { id: 'sub-networks', semesterId: 'sem-5', name: 'Computer Networks', code: 'CS401', description: 'Network architectures, protocols, and security', credit: 3, color: 'from-blue-500 to-cyan-500' },
   { id: 'sub-ai', semesterId: 'sem-6', name: 'Artificial Intelligence', code: 'CS501', description: 'Search, reasoning, learning, and intelligent agents', credit: 3, color: 'from-fuchsia-500 to-pink-500' },
+  { id: 'sub-compiler', semesterId: 'sem-7', name: 'Compiler Design', code: 'CS601', description: 'Lexing, parsing, and code-generation techniques', credit: 4, color: 'from-slate-500 to-gray-600' },
+  { id: 'sub-ml', semesterId: 'sem-7', name: 'Machine Learning', code: 'CS602', description: 'Supervised, unsupervised, and reinforcement learning', credit: 3, color: 'from-emerald-500 to-green-600' },
+  { id: 'sub-cloud', semesterId: 'sem-7', name: 'Cloud Computing', code: 'CS603', description: 'Virtualization, cloud services, and DevOps', credit: 3, color: 'from-sky-500 to-blue-600' },
+  { id: 'sub-project', semesterId: 'sem-8', name: 'Major Project & Seminar', code: 'CS701', description: 'Industry project, research paper, and viva', credit: 6, color: 'from-orange-500 to-amber-600' },
+  { id: 'sub-iot', semesterId: 'sem-8', name: 'Internet of Things', code: 'CS702', description: 'Embedded systems, sensors, and IoT architectures', credit: 3, color: 'from-teal-500 to-cyan-600' },
+  { id: 'sub-blockchain', semesterId: 'sem-8', name: 'Blockchain Technology', code: 'CS703', description: 'Cryptocurrency, smart contracts, and consensus', credit: 3, color: 'from-indigo-500 to-purple-600' },
 ]
 
 
@@ -122,7 +157,7 @@ export const skills: Skill[] = [
   { id: 'sk-1', name: 'DSA', category: 'technical', level: 'intermediate', description: 'Data Structures and Algorithms', icon: '🎯', color: 'from-purple-500 to-indigo-500', progress: 82 },
   { id: 'sk-2', name: 'Python', category: 'technical', level: 'advanced', description: 'Python programming language', icon: '🐍', color: 'from-blue-500 to-cyan-500', progress: 90 },
   { id: 'sk-3', name: 'JavaScript', category: 'technical', level: 'intermediate', description: 'Modern JavaScript and ES6+', icon: '🟨', color: 'from-yellow-400 to-amber-500', progress: 65 },
-  { id: 'sk-4', name: 'SQL', category: 'technical', level: 'intermediate', description: 'Database querying and design', icon: '📊', color: 'from-emerald-500 to-teal-500', progress: 50 },
+  { id: 'sk-4', name: 'SQL', category: 'technical', level: 'intermediate', description: 'Database querying and design', icon: '📊', color: 'from-emerald-500 to-teal-500', progress: 50, videoUrl: 'https://www.youtube.com/watch?v=SSKVgrwhzus&list=PLNcg_FV9n7qZY_2eAtUzEUulNjTJREhQe' },
   { id: 'sk-5', name: 'React', category: 'technical', level: 'intermediate', description: 'React.js frontend library', icon: '⚛️', color: 'from-cyan-500 to-blue-500', progress: 75 },
   { id: 'sk-6', name: 'Java', category: 'technical', level: 'intermediate', description: 'Object-oriented programming in Java', icon: '☕', color: 'from-red-500 to-orange-500', progress: 60 },
   { id: 'sk-7', name: 'System Design', category: 'technical', level: 'beginner', description: 'Scalable system architecture', icon: '🏗️', color: 'from-fuchsia-500 to-pink-500', progress: 35 },
@@ -149,6 +184,11 @@ export const jobs: Job[] = [
   { id: 'job-4', title: 'Backend Developer', company: 'Netflix', companyLogo: '/companies/netflix.png', location: 'Remote', type: 'Full Time', experience: '2-5 yrs', salary: '$ 120k - 160k', postedAt: '2024-07-12', applyUrl: '#', skills: ['System Design', 'Python', 'Go', 'AWS'], description: 'Build high-throughput backend services.', responsibilities: ['Design microservices'], requirements: ['Distributed systems experience'] },
   { id: 'job-5', title: 'Cloud Engineer', company: 'Accenture', companyLogo: '/companies/accenture.png', location: 'Chennai, India', type: 'Full Time', experience: '0-2 yrs', salary: '₹ 10L - 16L', postedAt: '2024-07-08', applyUrl: '#', skills: ['AWS', 'Azure', 'Docker', 'Kubernetes'], description: 'Design and maintain cloud infrastructure.', responsibilities: ['Deploy cloud solutions'], requirements: ['AWS or Azure certification'] },
   { id: 'job-6', title: 'AI/ML Engineer', company: 'OpenAI', companyLogo: '/companies/openai.png', location: 'San Francisco, USA', type: 'Full Time', experience: '1-4 yrs', salary: '$ 140k - 190k', postedAt: '2024-07-14', applyUrl: '#', skills: ['Python', 'Machine Learning', 'Deep Learning', 'PyTorch'], description: 'Research and build cutting-edge AI models.', responsibilities: ['Develop neural networks'], requirements: ['ML research experience'] },
+  { id: 'job-7', title: 'Data Engineer', company: 'Amazon', companyLogo: '/companies/amazon.png', location: 'Bangalore, India', type: 'Full Time', experience: '0-2 yrs', salary: '₹ 14L - 20L', postedAt: '2024-07-16', applyUrl: '#', skills: ['Python', 'Apache Spark', 'AWS', 'SQL', 'ETL'], description: 'Build and maintain data pipelines for Amazon retail analytics.', responsibilities: ['Design ETL pipelines', 'Maintain data warehouses'], requirements: ['Python and SQL proficiency', 'AWS Glue or Spark experience'] },
+  { id: 'job-8', title: 'Mobile Developer (Android)', company: 'Samsung', companyLogo: '/companies/samsung.png', location: 'Noida, India', type: 'Full Time', experience: '0-1 yrs', salary: '₹ 9L - 14L', postedAt: '2024-07-13', applyUrl: '#', skills: ['Kotlin', 'Java', 'Android SDK', 'Jetpack Compose'], description: 'Build Android apps for Samsung Galaxy devices and services.', responsibilities: ['Develop native Android features', 'Optimize UI performance'], requirements: ['Kotlin and Android SDK experience'] },
+  { id: 'job-9', title: 'Cybersecurity Analyst', company: 'IBM', companyLogo: '/companies/ibm.png', location: 'Remote', type: 'Full Time', experience: 'Fresher', salary: '₹ 7L - 12L', postedAt: '2024-07-09', applyUrl: '#', skills: ['Networking', 'Linux', 'SIEM', 'Python', 'Risk Assessment'], description: 'Monitor security events and respond to threats for enterprise clients.', responsibilities: ['Threat hunting', 'Incident response', 'Security auditing'], requirements: ['Basic networking and Linux knowledge'] },
+  { id: 'job-10', title: 'Full Stack Developer', company: 'Adobe', companyLogo: '/companies/adobe.png', location: 'Bangalore, India', type: 'Full Time', experience: '1-3 yrs', salary: '₹ 16L - 24L', postedAt: '2024-07-11', applyUrl: '#', skills: ['React', 'Node.js', 'MongoDB', 'Express', 'Docker'], description: 'Build end-to-end features for Adobe Creative Cloud web apps.', responsibilities: ['Full-stack feature development', 'API design'], requirements: ['MERN stack experience', 'REST API design'] },
+  { id: 'job-11', title: 'DevOps Engineer', company: 'Microsoft', companyLogo: '/companies/microsoft.png', location: 'Hyderabad, India', type: 'Full Time', experience: '1-4 yrs', salary: '₹ 18L - 26L', postedAt: '2024-07-07', applyUrl: '#', skills: ['Azure', 'Kubernetes', 'CI/CD', 'Terraform', 'Shell'], description: 'Automate deployments and infrastructure for Azure cloud services.', responsibilities: ['CI/CD pipeline design', 'Infrastructure as code'], requirements: ['Azure certification preferred', 'Kubernetes & Terraform'] },
 ]
 
 export const internships: Internship[] = [
@@ -180,8 +220,16 @@ export const certifications: Certification[] = [
   { id: 'cert-1', name: 'Full Stack Developer', description: 'MERN stack development', issuer: 'DigiSpark Academy', icon: '🎯', progress: 85, completed: false, skills: ['React', 'Node.js', 'MongoDB', 'Express'], duration: '40h' },
   { id: 'cert-2', name: 'Data Science Professional', description: 'Python, Statistics, ML', issuer: 'DigiSpark Academy', icon: '📊', progress: 45, completed: false, skills: ['Python', 'Pandas', 'Statistics', 'ML'], duration: '35h' },
   { id: 'cert-3', name: 'Cloud Practitioner', description: 'AWS fundamentals', issuer: 'DigiSpark Academy', icon: '☁️', progress: 20, completed: false, skills: ['AWS', 'Cloud', 'DevOps'], duration: '20h' },
-  { id: 'cert-4', name: 'Python Developer', description: 'Complete Python mastery', issuer: 'DigiSpark Academy', icon: '🐍', progress: 100, completed: true, certificateUrl: '#', skills: ['Python', 'OOP', 'Django'], duration: '25h' },
-  { id: 'cert-5', name: 'Web Development', description: 'HTML, CSS, JavaScript', issuer: 'DigiSpark Academy', icon: '⚛️', progress: 100, completed: true, certificateUrl: '#', skills: ['HTML', 'CSS', 'JavaScript'], duration: '15h' },
+  { id: 'cert-4', name: 'Python Developer', description: 'Complete Python mastery', issuer: 'DigiSpark Academy', icon: '🐍', progress: 100, completed: true, certificateUrl: '#', skills: ['Python', 'OOP', 'Django'], duration: '25h', certificate: { title: 'PYTHON DEVELOPER', recipient: 'Taniya Singh', certificateId: 'DS-PYD-2024-0587', issueDate: '25 May 2024', validTill: '25 May 2026', note: "This certification acknowledges the recipient's proficiency in Python programming, problem solving, data structures, OOP concepts, and building real-world applications.", seal: 'python' } },
+  { id: 'cert-5', name: 'Web Development', description: 'HTML, CSS, JavaScript', issuer: 'DigiSpark Academy', icon: '⚛️', progress: 100, completed: true, certificateUrl: '#', skills: ['HTML', 'CSS', 'JavaScript'], duration: '15h', certificate: { title: 'WEB DEVELOPMENT', recipient: 'Taniya Singh', certificateId: 'DS-WD-2024-0742', issueDate: '25 May 2024', validTill: '25 May 2026', note: "This certification acknowledges the recipient's proficiency in front-end and back-end development, responsive design, databases, and building dynamic web applications.", seal: 'code' } },
+  // Dummy certificates to fill out the showcase
+  { id: 'cert-6', name: 'Database Management (SQL)', description: 'Relational databases, queries, and design', issuer: 'DigiSpark Academy', icon: '🗄️', progress: 100, completed: true, certificateUrl: '#', skills: ['SQL', 'DBMS', 'NoSQL'], duration: '22h' },
+  { id: 'cert-7', name: 'JavaScript Essentials', description: 'ES6+, async programming, and DOM', issuer: 'DigiSpark Academy', icon: '🟨', progress: 100, completed: true, certificateUrl: '#', skills: ['JavaScript', 'ES6', 'Async'], duration: '18h' },
+  { id: 'cert-8', name: 'DSA with Java', description: 'Data structures and algorithm patterns', issuer: 'DigiSpark Academy', icon: '🧠', progress: 62, completed: false, skills: ['DSA', 'Java', 'Problem Solving'], duration: '50h' },
+  { id: 'cert-9', name: 'React Developer', description: 'Component architecture and hooks', issuer: 'DigiSpark Academy', icon: '⚛️', progress: 30, completed: false, skills: ['React', 'Hooks', 'Redux'], duration: '28h' },
+  { id: 'cert-10', name: 'AI & Machine Learning', description: 'Scikit-learn, TensorFlow, and ML workflows', issuer: 'DigiSpark Academy', icon: '🤖', progress: 12, completed: false, skills: ['Python', 'TensorFlow', 'Scikit-learn'], duration: '60h' },
+  { id: 'cert-11', name: 'UI/UX Design Fundamentals', description: 'Wireframing, prototyping, and design systems', issuer: 'DigiSpark Academy', icon: '🎨', progress: 5, completed: false, skills: ['Figma', 'Wireframing', 'Prototyping'], duration: '16h' },
+  { id: 'cert-12', name: 'Power BI & Data Visualization', description: 'Dashboards and business intelligence', issuer: 'DigiSpark Academy', icon: '📈', progress: 100, completed: true, certificateUrl: '#', skills: ['Power BI', 'DAX', 'Dashboards'], duration: '20h' },
 ]
 
 

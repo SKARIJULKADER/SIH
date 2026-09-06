@@ -13,6 +13,7 @@ const navLinks = [
   { to: '/', label: 'Home' },
   { to: '/courses', label: 'Courses' },
   { to: '/skills', label: 'Skills' },
+  { to: '/roadmaps', label: 'Roadmap' },
   { to: '/career', label: 'Career' },
   { to: '/jobs', label: 'Jobs' },
   { to: '/internships', label: 'Internships' },

@@ -24,7 +24,7 @@ import { extractTextFromFile } from '../src/api/resumeFile'
 import { analyzeAts, jobKeywords, diffLines, diffStats } from '../src/api/optimizer'
 import { computeStreak, bestRunFromLog, awardXp } from '../src/api/gamification'
 import { localDateKey } from '../src/api/storage'
-import { tokensForMinutes } from '../src/lib/pricing'
+import { tokensForMinutes, VIDEO_SOLUTION_TOKENS, QUIZ_TOKEN_COST } from '../src/lib/pricing'
 import { xpForAction } from '../server/gamification'
 import { tokensForMinutes as serverTokensForMinutes } from '../server/pricing'
 import {
@@ -207,10 +207,15 @@ describe('gamification XP + streaks', () => {
 // --- 5. Token pricing --------------------------------------------------------
 
 describe('token pricing', () => {
-  it('charges 50 tokens per minute (client + server rules)', () => {
-    expect(tokensForMinutes(1)).toBe(50)
-    expect(tokensForMinutes(3)).toBe(150)
-    expect(serverTokensForMinutes(5)).toBe(250)
+  it('charges 5 tokens per minute (client + server rules)', () => {
+    expect(tokensForMinutes(1)).toBe(5)
+    expect(tokensForMinutes(3)).toBe(15)
+    expect(serverTokensForMinutes(5)).toBe(25)
+  })
+
+  it('charges a flat 5 tokens for a video solution and 10 for a quiz', () => {
+    expect(VIDEO_SOLUTION_TOKENS).toBe(5)
+    expect(QUIZ_TOKEN_COST).toBe(10)
   })
 })
 

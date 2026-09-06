@@ -1,7 +1,7 @@
 // src/pages/VideoSolutions.tsx
 // 🎥 Video Solution Generator — premium (⭐ PRO) feature.
 // Flow: QUESTION → AI SOLUTION (real Gemini) → VIDEO GENERATION (provider seam) → PLAYER
-// Token pricing: 1 minute = 50 tokens. Tokens are only deducted after a
+// Token pricing: 1 minute = 5 tokens. Tokens are only deducted after a
 // successful video generation — a missing provider never charges anything.
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
@@ -37,7 +37,7 @@ export default function VideoSolutions() {
   const [question, setQuestion] = useState('')
   const [topic, setTopic] = useState(TOPICS[0])
   const [difficulty, setDifficulty] = useState('Medium')
-  const [minutes, setMinutes] = useState(3)
+  const [minutes, setMinutes] = useState(1)
   const [phase, setPhase] = useState<'idle' | 'generating' | 'done'>('idle')
   const [solution, setSolution] = useState('')
   const [video, setVideo] = useState<VideoState | null>(null)
@@ -122,7 +122,7 @@ export default function VideoSolutions() {
               <ul className="text-left text-sm text-text-secondary space-y-2 mt-5 max-w-xs mx-auto">
                 <li className="flex items-center gap-2"><Sparkles size={15} className="text-primary" /> Step-by-step AI solutions</li>
                 <li className="flex items-center gap-2"><Film size={15} className="text-primary" /> Narrated video explanations</li>
-                <li className="flex items-center gap-2"><Coins size={15} className="text-primary" /> Simple token pricing — 50 tokens / minute</li>
+                <li className="flex items-center gap-2"><Coins size={15} className="text-primary" /> Simple token pricing — 5 tokens / minute</li>
               </ul>
               <Button variant="primary" className="mt-6 w-full gap-2" onClick={unlockPro}>
                 <Star size={17} /> Upgrade to Pro
@@ -210,7 +210,7 @@ export default function VideoSolutions() {
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-text-secondary">Rate</span>
-                    <span className="text-text-heading font-medium">50 tokens / min</span>
+                    <span className="text-text-heading font-medium">5 tokens / min</span>
                   </div>
                   <div className="border-t border-border pt-3 flex justify-between items-center">
                     <span className="text-text-secondary text-sm">Estimated cost</span>

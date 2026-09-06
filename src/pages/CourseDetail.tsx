@@ -1,16 +1,25 @@
 // src/pages/CourseDetail.tsx
+import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { ProgressBar } from '@/components/ui/ProgressBar'
 import { subjects, chapters } from '@/api/data'
-import { Play, ChevronDown, CheckCircle, Circle, Clock } from 'lucide-react'
+import { QuizSection } from '@/components/courses/QuizSection'
+import { toEmbedUrl, cn } from '@/lib/utils'
+import { Play, ChevronDown, CheckCircle, Circle, Clock, ExternalLink, ListVideo } from 'lucide-react'
+import type { Lesson } from '@/api/types'
 
 const CourseDetail = () => {
   const { subjectId } = useParams<{ subjectId: string }>()
   const subject = subjects.find((s) => s.id === subjectId)
   const subjectChapters = subject ? chapters.filter((c) => c.subjectId === subject.id) : []
+  const allLessons: Lesson[] = subjectChapters.flatMap((c) => c.lessons)
+
+  // Video currently loaded in the player. null => default source
+  // (full-course playlist when available, otherwise the first lesson).
+  const [activeLesson, setActiveLesson] = useState<Lesson | null>(null)
 
   if (!subject) {
     return (
@@ -22,9 +31,34 @@ const CourseDetail = () => {
     )
   }
 
-  const totalLessons = subjectChapters.flatMap((c) => c.lessons).length
-  const completedLessons = subjectChapters.flatMap((c) => c.lessons.filter((l) => l.isCompleted)).length
+  const totalLessons = allLessons.length
+  const completedLessons = allLessons.filter((l) => l.isCompleted).length
   const progress = totalLessons > 0 ? (completedLessons / totalLessons) * 100 : 0
+
+  // Default player source: full-course playlist (e.g. DSA), otherwise the first lesson.
+  const defaultSource = subject.playlistUrl
+    ? toEmbedUrl(subject.playlistUrl)
+    : allLessons[0]?.videoUrl ?? ''
+  const source = activeLesson ? toEmbedUrl(activeLesson.videoUrl) : defaultSource
+
+  const nowPlayingTitle = activeLesson
+    ? activeLesson.title
+    : subject.playlistUrl
+      ? 'Complete Course Playlist'
+      : allLessons[0]?.title ?? 'Course Video'
+  const nowPlayingDescription = activeLesson
+    ? activeLesson.description
+    : subject.playlistUrl
+      ? `${subject.name} — the full lecture playlist, streaming directly from YouTube.`
+      : allLessons[0]?.description ?? ''
+  const nowPlayingDuration = activeLesson
+    ? activeLesson.duration
+    : subject.playlistUrl
+      ? 'Full course'
+      : allLessons[0]?.duration ?? ''
+  const externalUrl = activeLesson
+    ? activeLesson.videoUrl
+    : subject.playlistUrl ?? allLessons[0]?.videoUrl ?? ''
 
   return (
     <div className="pt-24 pb-20 min-h-screen">
@@ -52,8 +86,8 @@ const CourseDetail = () => {
               <CardContent className="p-0 h-full">
                 <iframe
                   className="w-full h-full rounded-xl"
-                  src="https://www.youtube.com/embed/_Z1eFvMSg_4"
-                  title="DSA Course - Introduction"
+                  src={source}
+                  title={`${subject.name} — ${nowPlayingTitle}`}
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
@@ -62,22 +96,43 @@ const CourseDetail = () => {
             </Card>
 
             <Card>
-              <CardHeader>
-                <CardTitle>What is DSA?</CardTitle>
+              <CardHeader className="flex-row items-center justify-between flex-wrap gap-3">
+                <div>
+                  <CardTitle className="flex items-center gap-2">
+                    <Play size={17} className="text-primary" />
+                    {nowPlayingTitle}
+                  </CardTitle>
+                  <p className="text-xs text-text-secondary mt-1.5">Now playing</p>
+                </div>
+                {subject.playlistUrl && (
+                  <Badge variant="gradient" className="gap-1">
+                    <ListVideo size={13} /> Full Course Playlist
+                  </Badge>
+                )}
               </CardHeader>
               <CardContent>
-                <p className="text-text-secondary mb-4">
-                  Introduction to data structures and algorithms. Understanding the fundamentals that power
-                  every efficient program and technical interview.
-                </p>
+                <p className="text-text-secondary mb-4">{nowPlayingDescription}</p>
                 <div className="flex flex-wrap gap-2 text-sm text-text-secondary">
-                  <span className="flex items-center gap-1"><Clock size={14} />12 min</span>
-                  <span className="flex items-center gap-1"><CheckCircle size={14} className="text-success" />Completed</span>
+                  <span className="flex items-center gap-1"><Clock size={14} />{nowPlayingDuration}</span>
+                  {activeLesson?.isCompleted && (
+                    <span className="flex items-center gap-1"><CheckCircle size={14} className="text-success" />Completed</span>
+                  )}
                 </div>
               </CardContent>
-              <CardFooter className="flex gap-2">
-                <Button variant="primary" size="sm" className="gap-1"><Play size={14} /> Mark as Done</Button>
-                <Button variant="secondary" size="sm">Download Notes (PDF)</Button>
+              <CardFooter className="flex gap-2 flex-wrap">
+                <Button
+                  variant="primary"
+                  size="sm"
+                  className="gap-1"
+                  onClick={() => activeLesson && setActiveLesson({ ...activeLesson, isCompleted: true })}
+                >
+                  <CheckCircle size={14} /> Mark as Done
+                </Button>
+                <a href={externalUrl} target="_blank" rel="noreferrer">
+                  <Button variant="secondary" size="sm" className="gap-1">
+                    <ExternalLink size={14} /> Open in YouTube
+                  </Button>
+                </a>
               </CardFooter>
             </Card>
           </div>
@@ -89,6 +144,23 @@ const CourseDetail = () => {
                 <CardTitle>Course Content ({totalLessons} lessons)</CardTitle>
               </CardHeader>
               <CardContent className="p-0">
+                {subject.playlistUrl && (
+                  <div className="p-3 border-b border-border/60">
+                    <button
+                      onClick={() => setActiveLesson(null)}
+                      className={cn(
+                        'w-full flex items-center gap-2.5 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors text-left',
+                        activeLesson === null
+                          ? 'bg-primary/15 text-primary shadow-glow-inner'
+                          : 'text-text-heading hover:bg-surface-2',
+                      )}
+                    >
+                      <ListVideo size={16} className="shrink-0" />
+                      <span className="flex-1">Play Full Course Playlist</span>
+                      <Play size={14} />
+                    </button>
+                  </div>
+                )}
                 <div className="space-y-1">
                   {subjectChapters.map((chapter) => (
                     <details key={chapter.id} className="border-b border-border/50 last:border-0">
@@ -98,13 +170,26 @@ const CourseDetail = () => {
                       </summary>
                       <div className="px-4 pb-2">
                         {chapter.lessons.map((lesson) => (
-                          <div key={lesson.id} className="flex items-center gap-2 py-2 pl-2 hover:bg-surface-2 rounded-md transition-colors">
-                            {lesson.isCompleted ? <CheckCircle size={14} className="text-success" /> : <Circle size={14} className="text-text-secondary" />}
-                            <div className="flex-1">
-                              <p className="text-sm font-medium text-text-heading">{lesson.title}</p>
+                          <button
+                            key={lesson.id}
+                            onClick={() => setActiveLesson(lesson)}
+                            className={cn(
+                              'w-full flex items-center gap-2 py-2.5 pl-2 rounded-md transition-colors text-left',
+                              activeLesson?.id === lesson.id
+                                ? 'bg-primary/10 text-primary'
+                                : 'text-text-heading hover:bg-surface-2',
+                            )}
+                          >
+                            {activeLesson?.id === lesson.id
+                              ? <Play size={14} className="text-primary shrink-0" />
+                              : lesson.isCompleted
+                                ? <CheckCircle size={14} className="text-success shrink-0" />
+                                : <Circle size={14} className="text-text-secondary shrink-0" />}
+                            <div className="flex-1 min-w-0">
+                              <p className="text-sm font-medium truncate">{lesson.title}</p>
                               <p className="text-xs text-text-secondary">{lesson.duration}</p>
                             </div>
-                          </div>
+                          </button>
                         ))}
                         {chapter.lessons.length === 0 && <p className="text-xs text-text-secondary py-2">{chapter.duration} · {chapter.description}</p>}
                       </div>
@@ -114,9 +199,10 @@ const CourseDetail = () => {
               </CardContent>
             </Card>
           </div>
-
-
         </div>
+
+        {/* Quiz — test yourself after the lectures */}
+        <QuizSection subjectId={subject.id} subjectName={subject.name} />
       </div>
     </div>
   )

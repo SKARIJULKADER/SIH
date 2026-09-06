@@ -24,6 +24,8 @@ export type Subject = {
   description: string
   credit: number
   color: string
+  /** Optional full-course YouTube playlist (watch or embed URL) played in the course player. */
+  playlistUrl?: string
 }
 
 export type Chapter = {
@@ -57,6 +59,8 @@ export type Skill = {
   icon: string
   color: string
   progress?: number
+  /** Optional course video / playlist played when the skill card is clicked. */
+  videoUrl?: string
 }
 
 export type UserSkill = {
@@ -120,6 +124,23 @@ export type InterviewAttempt = {
   duration: string
 }
 
+export type CertificateSeal = 'python' | 'code' | 'star'
+
+export type CertificateInfo = {
+  /** Title printed on the certificate, e.g. "PYTHON DEVELOPER" */
+  title: string
+  /** Name of the recipient written in script */
+  recipient: string
+  /** Official certificate ID, e.g. "DS-PYD-2024-0587" */
+  certificateId: string
+  issueDate: string
+  validTill: string
+  /** Acknowledgement paragraph */
+  note: string
+  /** Icon inside the bottom laurel seal */
+  seal: CertificateSeal
+}
+
 export type Certification = {
   id: string
   name: string
@@ -129,6 +150,8 @@ export type Certification = {
   progress: number
   completed: boolean
   certificateUrl?: string
+  /** Full certificate design data — rendered by CertificateTemplate */
+  certificate?: CertificateInfo
   skills: string[]
   duration: string
 }
@@ -239,4 +262,54 @@ export type Stat = {
   change: string
   icon: string
   trend: 'up' | 'down' | 'neutral'
+}
+
+/** Multiple-choice quiz used after course lectures (CourseDetail). */
+export type QuizQuestion = {
+  id: string
+  subjectId: string
+  question: string
+  options: string[]
+  correctIndex: number
+  explanation: string
+}
+
+/** A full YouTube module inside a paid roadmap course. */
+export type RoadmapVideoModule = {
+  id: string
+  title: string
+  description: string
+  icon: string
+  url: string
+  duration: string
+}
+
+/** One phase/section of a career roadmap. */
+export type RoadmapPhase = {
+  id: string
+  title: string
+  icon: string
+  description: string
+  duration: string
+  skills: string[]
+  tasks: string[]
+}
+
+/** A career field students can follow (SDE, Data Analyst, Web Dev, …). */
+export type RoadmapField = {
+  id: string
+  name: string
+  icon: string
+  color: string
+  description: string
+  targetRoles: string[]
+  duration: string
+  phases: RoadmapPhase[]
+  paidCourse: {
+    title: string
+    description: string
+    tokens: number
+    price: string
+    modules: RoadmapVideoModule[]
+  }
 }

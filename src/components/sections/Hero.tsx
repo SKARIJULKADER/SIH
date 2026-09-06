@@ -28,6 +28,13 @@ export const Hero = () => {
       <div className="pointer-events-none absolute top-32 -right-32 w-[28rem] h-[28rem] rounded-full bg-sky-100/80 blur-3xl" />
       <div className="pointer-events-none absolute bottom-0 left-1/3 w-80 h-80 rounded-full bg-violet-100/70 blur-3xl" />
 
+      {/* Big "DIGI SPARK" watermark in the middle of the page background */}
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden" aria-hidden="true">
+        <span className="select-none whitespace-nowrap uppercase text-[13vw] sm:text-[12vw] lg:text-[11vw] font-extrabold tracking-tighter bg-gradient-to-b from-growth/10 via-teal-500/10 to-sky-500/10 bg-clip-text text-transparent">
+          DIGI SPARK
+        </span>
+      </div>
+
       <div className="container mx-auto px-4 lg:px-6 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
         <div>
           <Reveal>
@@ -38,8 +45,13 @@ export const Hero = () => {
           </Reveal>
 
           <Reveal delay={80}>
-            <h1 className="mt-6 text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-[1.08]">
-              Learn. Build. Prepare. <span className="text-gradient-growth">Get Hired.</span>
+            <h1 className="mt-6 font-extrabold tracking-tight text-slate-900 leading-[1.05]">
+              <span className="block text-4xl sm:text-5xl lg:text-6xl xl:text-7xl">
+                DIGI <span className="text-gradient-growth">SPARK</span>
+              </span>
+              <span className="mt-3 block text-xl sm:text-2xl text-slate-800">
+                Learn. Build. Prepare. <span className="text-gradient-growth">Get Hired.</span>
+              </span>
             </h1>
           </Reveal>
 

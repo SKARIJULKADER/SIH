@@ -109,17 +109,12 @@ export function BrainFishWidget() {
           aria-label="Chat with BrainFish"
         >
           <span className="absolute inset-0 rounded-full bg-growth/40 animate-ping opacity-20" aria-hidden="true" />
-          <BrainFishAvatar size={44} />
+          <BrainFishAvatar size={54} />
           <span className="relative hidden sm:flex flex-col items-start leading-tight">
             <span className="text-white font-bold text-sm">BrainFish</span>
             <span className="text-white/80 text-[11px]">Ask me anything 🐟</span>
           </span>
         </button>
-        {status === 'closed' && (
-          <div className="absolute -top-11 right-0 hidden sm:block bg-white text-slate-700 text-xs font-semibold rounded-full px-3 py-1.5 shadow-lift border border-slate-100 animate-fade-in whitespace-nowrap">
-            👋 Need help? Ask BrainFish!
-          </div>
-        )}
       </div>
     )
   }

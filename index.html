@@ -2,7 +2,25 @@
 <html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
+    <script>
+      // Apply the persisted theme before React mounts to avoid a flash of the
+      // wrong theme. Defaults to dark (matches the original design).
+      (function () {
+        var t = null;
+        try { t = localStorage.getItem('theme'); } catch (e) {}
+        if (t !== 'light') document.documentElement.classList.add('dark');
+      })();
+    </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Certificate fonts: Playfair Display (CERTIFICATE heading), Great Vibes (script
+         name/signature), Jost (body). Loaded with swap so text renders immediately
+         with fallbacks. -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Great+Vibes&family=Jost:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="DigiSpark - The Complete Learning & Career Ecosystem" />
     <title>DigiSpark</title>

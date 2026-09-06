@@ -7,7 +7,14 @@ type ThemeContextType = { theme: Theme; toggleTheme: () => void }
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('dark')
+  // Restore the persisted preference (defaults to dark, matching the original design).
+  const [theme, setTheme] = useState<Theme>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = window.localStorage.getItem('theme')
+      if (saved === 'light' || saved === 'dark') return saved
+    }
+    return 'dark'
+  })
 
   useEffect(() => {
     const root = document.documentElement

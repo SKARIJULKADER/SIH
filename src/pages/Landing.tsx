@@ -7,11 +7,13 @@ import { JourneySteps } from '@/components/sections/JourneySteps'
 import { CourseCategories } from '@/components/sections/CourseCategories'
 import { CTASection } from '@/components/sections/CTASection'
 import { BrainFishWidget } from '@/components/brainfish/BrainFishWidget'
+import { AiVideoSolutionWidget } from '@/components/brainfish/AiVideoSolutionWidget'
 import { LandingStats } from '@/components/landing/LandingStats'
 import { FeatureCards } from '@/components/landing/FeatureCards'
 import { SkillsAndPaths } from '@/components/landing/SkillsAndPaths'
 import { Opportunities } from '@/components/landing/Opportunities'
 import { Testimonials } from '@/components/landing/Testimonials'
+import { VideoSolutionTeaser } from '@/components/landing/VideoSolutionTeaser'
 
 const Landing = () => {
   return (
@@ -32,9 +34,13 @@ const Landing = () => {
       <Opportunities />
       {/* 8. Success stories */}
       <Testimonials />
-      {/* 9. Final CTA */}
+      {/* 9. ⚡ AI Video Solution Generator (paid, dummy preview) — sits above the BrainFish assistant */}
+      <VideoSolutionTeaser />
+      {/* 10. Final CTA */}
       <CTASection />
 
+      {/* ⚡ AI Video Solution (paid, dummy) floating icon — sits above BrainFish */}
+      <AiVideoSolutionWidget />
       {/* BrainFish floating assistant (bottom-right, all landing sections) */}
       <BrainFishWidget />
     </div>
