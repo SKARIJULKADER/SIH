@@ -4,7 +4,7 @@ import type { HTMLAttributes } from 'react'
 import { cn } from '@/lib/utils'
 
 export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
-  variant?: 'default' | 'outline' | 'secondary' | 'success' | 'warning' | 'danger' | 'gradient'
+  variant?: 'default' | 'outline' | 'secondary' | 'success' | 'warning' | 'danger' | 'gradient' | 'primary'
   size?: 'sm' | 'md'
 }
 
@@ -12,6 +12,7 @@ export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
   ({ className, variant = 'default', size = 'md', children, ...props }, ref) => {
     const variants = {
       default: 'bg-surface-2 text-text-heading',
+      primary: 'bg-primary/20 text-primary',
       outline: 'border border-border text-text-secondary',
       secondary: 'bg-surface-2 text-text-heading',
       success: 'bg-success/20 text-success',

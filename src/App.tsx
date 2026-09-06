@@ -48,6 +48,20 @@ import DashboardAutoApply from '@/pages/dashboard/AutoApply'
 import DashboardPlacementAnalytics from '@/pages/dashboard/Analytics'
 import DashboardAchievements from '@/pages/dashboard/Achievements'
 import DashboardProfile from '@/pages/dashboard/Profile'
+import DashboardMockInterview from '@/pages/dashboard/MockInterview'
+import DashboardCodingPlayground from '@/pages/dashboard/CodingPlayground'
+import DashboardLeaderboard from '@/pages/dashboard/Leaderboard'
+import DashboardDailyChallenge from '@/pages/dashboard/DailyChallenge'
+import DashboardPortfolio from '@/pages/dashboard/Portfolio'
+import DashboardMentors from '@/pages/dashboard/Mentors'
+import DashboardSalarySimulator from '@/pages/dashboard/SalarySimulator'
+import DashboardStudyGroups from '@/pages/dashboard/StudyGroups'
+import DashboardFlashcards from '@/pages/dashboard/Flashcards'
+import DashboardEvents from '@/pages/dashboard/Events'
+import DashboardCareerSimulator from '@/pages/dashboard/CareerSimulator'
+import DashboardInterviewExperiences from '@/pages/dashboard/InterviewExperiences'
+import DashboardNotifications from '@/pages/dashboard/Notifications'
+import DashboardReportCard from '@/pages/dashboard/ReportCard'
 
 function App() {
   return (
@@ -100,6 +114,20 @@ function App() {
         <Route path="/dashboard/resources" element={<DashboardResources />} />
         <Route path="/dashboard/certifications" element={<DashboardCertifications />} />
         <Route path="/dashboard/tokens" element={<DashboardTokens />} />
+        <Route path="/dashboard/mock-interview" element={<DashboardMockInterview />} />
+        <Route path="/dashboard/coding" element={<DashboardCodingPlayground />} />
+        <Route path="/dashboard/leaderboard" element={<DashboardLeaderboard />} />
+        <Route path="/dashboard/daily-challenge" element={<DashboardDailyChallenge />} />
+        <Route path="/dashboard/portfolio" element={<DashboardPortfolio />} />
+        <Route path="/dashboard/mentors" element={<DashboardMentors />} />
+        <Route path="/dashboard/salary-simulator" element={<DashboardSalarySimulator />} />
+        <Route path="/dashboard/study-groups" element={<DashboardStudyGroups />} />
+        <Route path="/dashboard/flashcards" element={<DashboardFlashcards />} />
+        <Route path="/dashboard/events" element={<DashboardEvents />} />
+        <Route path="/dashboard/career-simulator" element={<DashboardCareerSimulator />} />
+        <Route path="/dashboard/interview-experiences" element={<DashboardInterviewExperiences />} />
+        <Route path="/dashboard/notifications" element={<DashboardNotifications />} />
+        <Route path="/dashboard/report-card" element={<DashboardReportCard />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />

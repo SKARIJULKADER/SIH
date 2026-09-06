@@ -1,72 +1,147 @@
 // src/api/notifications.ts
-// In-app notification store (localStorage-backed).
-// Designed to be swapped for a real backend notification table later.
-// A lightweight listener API lets the Navbar badge update live.
-import { readStore, writeStore, uid } from './storage'
+// Smart Notifications — personalized notifications and reminders
+import { readStore, writeStore, uid } from "./storage"
+import type { DigiNotification } from "./types"
 
-export interface AppNotification {
+const NOTIFICATIONS_KEY = "digispark:notifications"
+
+export type AppNotification = {
   id: string
-  type: 'job-match' | 'application' | 'system'
   title: string
   body: string
-  link?: string
+  type: "job-match" | "application" | "system"
   read: boolean
   createdAt: string
+  link?: string
 }
 
-const KEY = 'digispark:notifications'
-const listeners = new Set<(notifications: AppNotification[]) => void>()
+type NotificationListener = (all: AppNotification[]) => void
+let listeners: NotificationListener[] = []
 
-function emit(): void {
-  const all = getNotifications()
-  listeners.forEach((listener) => listener(all))
+function notifyListeners() {
+  const all = getAppNotifications()
+  listeners.forEach((fn) => fn(all))
 }
 
-export function getNotifications(): AppNotification[] {
-  return readStore<AppNotification[]>(KEY, [])
-}
-
-export function unreadCount(): number {
-  return getNotifications().filter((n) => !n.read).length
-}
-
-export function subscribeNotifications(listener: (notifications: AppNotification[]) => void): () => void {
-  listeners.add(listener)
+export function subscribeNotifications(fn: NotificationListener): () => void {
+  listeners.push(fn)
   return () => {
-    listeners.delete(listener)
+    listeners = listeners.filter((l) => l !== fn)
   }
 }
 
-export function pushNotification(n: Omit<AppNotification, 'id' | 'read' | 'createdAt'>): AppNotification {
-  const notification: AppNotification = { ...n, id: uid('ntf'), read: false, createdAt: new Date().toISOString() }
-  const all = [notification, ...getNotifications()].slice(0, 50)
-  writeStore(KEY, all)
-  emit()
+export function getAppNotifications(): AppNotification[] {
+  const raw = readStore<DigiNotification[]>(NOTIFICATIONS_KEY, [])
+  return raw.map((n) => ({
+    id: n.id,
+    title: n.title,
+    body: n.message,
+    type: n.type === "job" ? "job-match" : "system",
+    read: n.read,
+    createdAt: n.createdAt,
+    link: n.actionUrl,
+  }))
+}
+
+export function pushNotification(
+  titleOrObj: string | { type: AppNotification["type"]; title: string; body: string; link?: string },
+  body?: string,
+  type?: AppNotification["type"],
+  link?: string,
+) {
+  const notification: DigiNotification = {
+    id: uid("notif"),
+    title: typeof titleOrObj === "string" ? titleOrObj : titleOrObj.title,
+    message: typeof titleOrObj === "string" ? (body ?? "") : titleOrObj.body,
+    type: typeof titleOrObj === "string"
+      ? (type === "job-match" ? "job" : "achievement")
+      : (titleOrObj.type === "job-match" ? "job" : "achievement"),
+    read: false,
+    createdAt: new Date().toISOString(),
+    actionUrl: typeof titleOrObj === "string" ? link : titleOrObj.link,
+  }
+  const notifications = readStore<DigiNotification[]>(NOTIFICATIONS_KEY, [])
+  notifications.unshift(notification)
+  writeStore(NOTIFICATIONS_KEY, notifications.slice(0, 50))
+  notifyListeners()
   return notification
 }
 
-/** 🔔 New Job Match — fired when fresh jobs match the student's profile. */
-export function notifyNewJobMatches(count: number): AppNotification | null {
-  if (count <= 0) return null
-  return pushNotification({
-    type: 'job-match',
-    title: '🔔 New Job Match',
-    body: `${count} new job${count === 1 ? '' : 's'} match your profile.`,
-    link: '/dashboard/job-finder',
-  })
+export function notifyNewJobMatches(count?: number) {
+  const msg =
+    count && count > 0
+      ? `We found ${count} new job${count === 1 ? '' : 's'} matching your skills.`
+      : 'We found jobs matching your skills.'
+  pushNotification('New Job Match!', msg, 'job-match', '/dashboard/job-finder')
 }
 
-export function markAllRead(): void {
-  writeStore(KEY, getNotifications().map((n) => ({ ...n, read: true })))
-  emit()
+export function markAllRead() {
+  markAllAsRead()
 }
 
-export function markRead(id: string): void {
-  writeStore(KEY, getNotifications().map((n) => (n.id === id ? { ...n, read: true } : n)))
-  emit()
+export function unreadCount(): number {
+  return getUnreadCount()
+}
+
+export function getNotifications(): DigiNotification[] {
+  return readStore<DigiNotification[]>(NOTIFICATIONS_KEY, [])
+}
+
+export function getUnreadCount(): number {
+  return getNotifications().filter((n) => !n.read).length
+}
+
+export function markAllAsRead(): void {
+  const notifications = getNotifications().map((n) => ({ ...n, read: true }))
+  writeStore(NOTIFICATIONS_KEY, notifications)
+  notifyListeners()
 }
 
 export function clearNotifications(): void {
-  writeStore(KEY, [])
-  emit()
+  writeStore(NOTIFICATIONS_KEY, [])
+  notifyListeners()
+}
+
+export function addNotification(title: string, message: string, type: DigiNotification["type"], actionUrl?: string): DigiNotification {
+  const notification: DigiNotification = {
+    id: uid("notif"),
+    title,
+    message,
+    type,
+    read: false,
+    createdAt: new Date().toISOString(),
+    actionUrl,
+  }
+  const notifications = getNotifications()
+  notifications.unshift(notification)
+  writeStore(NOTIFICATIONS_KEY, notifications.slice(0, 50))
+  notifyListeners()
+  return notification
+}
+
+export function markAsRead(id: string): void {
+  const notifications = getNotifications()
+  const index = notifications.findIndex((n) => n.id === id)
+  if (index >= 0) {
+    notifications[index].read = true
+    writeStore(NOTIFICATIONS_KEY, notifications)
+    notifyListeners()
+  }
+}
+
+/** @deprecated Use markAsRead instead. Kept for backward compatibility with tests. */
+export function markRead(id: string): void {
+  markAsRead(id)
+}
+
+export function generateSmartNotifications(streak: number, hasJobs: boolean, hasEvents: boolean): void {
+  if (streak > 0 && streak % 7 === 0) {
+    addNotification("Streak Milestone!", `You have maintained a ${streak}-day streak. Keep it up!`, "streak")
+  }
+  if (hasJobs) {
+    addNotification("New Job Match", "We found new jobs matching your skills. Check them out!", "job", "/dashboard/job-finder")
+  }
+  if (hasEvents) {
+    addNotification("Upcoming Event", "There is an exciting event coming soon. Register now!", "event", "/dashboard/events")
+  }
 }

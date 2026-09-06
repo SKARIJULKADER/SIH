@@ -7,7 +7,7 @@ import { Bell, Briefcase } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import {
   clearNotifications,
-  getNotifications,
+  getAppNotifications,
   markAllRead,
   subscribeNotifications,
   unreadCount,
@@ -22,7 +22,7 @@ const ICONS: Record<AppNotification['type'], typeof Bell> = {
 }
 
 export function NotificationBell() {
-  const [notifications, setNotifications] = useState<AppNotification[]>(getNotifications)
+  const [notifications, setNotifications] = useState<AppNotification[]>(getAppNotifications)
   const [open, setOpen] = useState(false)
   const [count, setCount] = useState(unreadCount)
   const ref = useRef<HTMLDivElement>(null)

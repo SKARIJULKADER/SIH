@@ -13,6 +13,7 @@ export interface StudentProfile {
   about: string
   preferredRoles: string[]
   preferredLocations: string[]
+  avatar?: string
 }
 
 const KEY = 'digispark:profile'

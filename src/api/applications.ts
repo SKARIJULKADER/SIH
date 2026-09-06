@@ -94,12 +94,7 @@ export function addApplication(input: AddApplicationInput, status: ApplicationSt
   writeStore(KEY, [application, ...getApplications()])
   if (status === 'applied') {
     void awardXp('jobApplication', input.job.id)
-    pushNotification({
-      type: 'application',
-      title: '✅ Application tracked',
-      body: `You applied for ${application.role} at ${application.company}.`,
-      link: '/dashboard/jobs',
-    })
+    pushNotification('✅ Application tracked', `You applied for ${application.role} at ${application.company}. Good luck!`, 'application', '/dashboard/jobs')
   }
   return application
 }

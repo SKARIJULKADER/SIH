@@ -20,6 +20,12 @@ import {
   BarChart3,
   Trophy,
   UserRound,
+  Code,
+  Calendar,
+  GraduationCap,
+  MessageSquare,
+  Bell,
+  ClipboardList,
 } from 'lucide-react'
 
 interface SidebarLink {
@@ -49,6 +55,20 @@ const sidebarLinks: SidebarLink[] = [
   { to: '/dashboard/certifications', label: 'Certifications', icon: Award },
   { to: '/dashboard/skill-gap', label: 'Skill Gap Analyzer', icon: BadgeHelp },
   { to: '/dashboard/tokens', label: 'Tokens', icon: Coins },
+  { to: '/dashboard/mock-interview', label: 'AI Mock Interview', icon: Mic, pro: true },
+  { to: '/dashboard/coding', label: 'Coding Playground', icon: Code, pro: true },
+  { to: '/dashboard/leaderboard', label: 'Leaderboard', icon: Trophy },
+  { to: '/dashboard/daily-challenge', label: 'Daily Challenge', icon: Calendar },
+  { to: '/dashboard/portfolio', label: 'Portfolio Builder', icon: GraduationCap, pro: true },
+  { to: '/dashboard/mentors', label: 'Mentor Connect', icon: Users, pro: true },
+  { to: '/dashboard/salary-simulator', label: 'Salary Simulator', icon: Coins, pro: true },
+  { to: '/dashboard/study-groups', label: 'Study Groups', icon: MessageSquare },
+  { to: '/dashboard/flashcards', label: 'Flashcards', icon: ClipboardList },
+  { to: '/dashboard/events', label: 'Events & Hackathons', icon: Calendar },
+  { to: '/dashboard/career-simulator', label: 'Career Simulator', icon: TrendingUp, pro: true },
+  { to: '/dashboard/interview-experiences', label: 'Interview Experiences', icon: FileText },
+  { to: '/dashboard/notifications', label: 'Notifications', icon: Bell },
+  { to: '/dashboard/report-card', label: 'Report Card', icon: Award, pro: true },
 ]
 
 export const Sidebar = () => {
